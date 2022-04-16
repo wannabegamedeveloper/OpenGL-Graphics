@@ -15,8 +15,8 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	glTexParameteri(texType, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-	glTexParameteri(texType, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(texType, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+	glTexParameteri(texType, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(texType, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
 
 	float flatColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glTexParameterfv(texType, GL_TEXTURE_BORDER_COLOR, flatColor);

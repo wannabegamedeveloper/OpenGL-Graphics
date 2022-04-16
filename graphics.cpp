@@ -27,16 +27,14 @@ int main()
 
 	GLfloat vertices[] =
 	{
-		-0.5f, -0.5f, 0.0f,     1.0f, 1.0f, 1.0f, 1.0f,    0.0f, 0.0f,
-		0.5f, -0.5f, 0.0f,      0.0f, 0.0f, 0.0f, 1.0f,	   2.0f, 0.0f,
-		0.5f, 0.5f, 0.0f,       0.0f, 0.0f, 0.0f, 1.0f,	   2.0f, 2.0f,
-		-0.5f, 0.5f, 0.0f,      1.0f, 1.0f, 1.0f, 1.0f,    0.0f, 2.0f
+		-0.5f, -0.5f,     1.0f, 1.0f, 1.0f, 1.0f,    0.0f, 0.0f,
+		0.5f, -0.5f,      0.0f, 0.0f, 0.0f, 1.0f,	 2.0f, 0.0f,
+		0.0f, 0.5f,      0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 2.0
 	};	
 
 	GLuint indices[] =
 	{
-		0, 1, 2,
-		0, 3, 2
+		0, 1, 2
 	};
 
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "AMOOGUS", monitor, NULL);
@@ -60,9 +58,9 @@ int main()
 	VBO VBO1(vertices, sizeof(vertices));
 	EBO EBO1(indices, sizeof(indices));
 
-	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 9 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 9 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 2, 3, GL_FLOAT, 9 * sizeof(float), (void*)(7 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 0, 2, GL_FLOAT, 8 * sizeof(float), (void*)0);
+	VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 8 * sizeof(float), (void*)(2 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 8 * sizeof(float), (void*)(6 * sizeof(float)));
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
@@ -87,7 +85,7 @@ int main()
 
 		VAO1.Bind();
 
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_LINE_LOOP, 6, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 
