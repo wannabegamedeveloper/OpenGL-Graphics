@@ -25,19 +25,16 @@ int main()
 
 	GLfloat vertices[] =
 	{
-		-0.5f, -0.5f, 0.0f,     0.0f, 0.0f, 0.0f,    0, 3,
-		0.5f, -0.5f, 0.0f,      1.0f, 1.0f, 1.0f,	 5, 3,
-		0.0f, 0.5f, 0.0f,       0.0f, 0.0f, 0.0f,	 1, 4,
-		0.0f, -0.5f, 0.0f,      1.0f, 1.0f, 1.0f,	 5, 4,
-		0.25f, 0.0f, 0.0f,      0.0f, 0.0f, 0.0f,	 2,
-		-0.25f, 0.0f, 0.0f,     1.0f, 1.0f, 1.0f
+		-0.5f, -0.5f, 0.0f,     0.0f, 0.0f, 0.0f, 1.0f,    
+		0.5f, -0.5f, 0.0f,      1.0f, 1.0f, 1.0f, 1.0f,	 
+		0.5f, 0.5f, 0.0f,       0.0f, 0.0f, 0.0f, 1.0f,	 
+		-0.5f, 0.5f, 0.0f,      1.0f, 1.0f, 1.0f, 1.0f
 	};	
 
 	GLuint indices[] =
 	{
-		0, 3, 5,
-		3, 1, 4,
-		5, 4, 2
+		0, 1, 2,
+		0, 3, 2
 	};
 
 	GLFWwindow* window = glfwCreateWindow(1920, 1080, "AMOOGUS", monitor, NULL);
@@ -80,7 +77,7 @@ int main()
 		shaderProgram.Activate();
 		VAO1.Bind();
 
-		glDrawElements(GL_TRIANGLES, 9, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(window);
 
