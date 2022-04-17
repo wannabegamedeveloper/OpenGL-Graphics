@@ -12,7 +12,7 @@ public:
 
 	Texture(const char* image, GLenum texType, GLenum slot, GLenum format, GLenum pixelType);
 
-	void texUni(Shader shader, const char* uniform, GLuint unit);
+	void texUni(Shader& shader, const char* uniform, GLuint unit);
 
 	void Bind();
 	void Unbind();

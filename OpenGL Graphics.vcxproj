@@ -166,7 +166,13 @@
     <ClInclude Include="VBO.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\brick.png" />
+    <Image Include="..\..\..\..\Pictures\160927210830-tk-ah0927.jpg" />
     <Image Include="..\..\..\..\Pictures\samurai-_-wallpaper.jpg" />
+    <Image Include="artworks-eW8o6DtdrA94gBzk-Hi77Eg-t500x500.jpg" />
+    <Image Include="coughing-cat-meme-lede.jpg" />
+    <Image Include="cursed-cat-65774492.png" />
+    <Image Include="images.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -75,5 +75,23 @@
     <Image Include="..\..\..\..\Pictures\samurai-_-wallpaper.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="..\..\..\..\Pictures\160927210830-tk-ah0927.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="images.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="coughing-cat-meme-lede.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="cursed-cat-65774492.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="..\..\..\..\Downloads\brick.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="artworks-eW8o6DtdrA94gBzk-Hi77Eg-t500x500.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

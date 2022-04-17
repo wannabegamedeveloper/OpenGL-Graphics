@@ -5,7 +5,7 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	type = texType;	
 	int widthImg, heightImg, colorChannels;
 	stbi_set_flip_vertically_on_load(true);
-	unsigned char* bytes = stbi_load("samurai-_-wallpaper.jpg", &widthImg, &heightImg, &colorChannels, 0);
+	unsigned char* bytes = stbi_load(image, &widthImg, &heightImg, &colorChannels, 0);
 
 	glGenTextures(1, &ID);
 	glActiveTexture(slot);
@@ -15,8 +15,8 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	glTexParameteri(texType, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 
-	glTexParameteri(texType, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-	glTexParameteri(texType, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameteri(texType, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(texType, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	float flatColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	glTexParameterfv(texType, GL_TEXTURE_BORDER_COLOR, flatColor);
@@ -29,7 +29,7 @@ Texture::Texture(const char* image, GLenum texType, GLenum slot, GLenum format, 
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::texUni(Shader shader, const char* uniform, GLuint unit)
+void Texture::texUni(Shader& shader, const char* uniform, GLuint unit)
 {
 	GLuint tex = glGetUniformLocation(shader.ID, uniform);
 	shader.Activate();
