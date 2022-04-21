@@ -5,6 +5,7 @@ Camera::Camera(int width, int height, glm::vec3 position)
 	Camera::width = width;
 	Camera::height = height;
 	Position = position;
+	Camera::first_click = false;
 }
 
 void Camera::UpdateMatrix(float FOVdeg, float nearPlane, float farPlane)
@@ -25,6 +26,31 @@ void Camera::Matrix(Shader& shader, const char* uniform)
 
 void Camera::Input(GLFWwindow* window)
 {
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_PRESS)
+	{
+		if (!first_click)
+		{
+			glfwSetCursorPos(window, (width / 2), height / 2);
+			first_click = true;
+
+			oldPos = Position;
+		}
+
+		double mouseX;
+		double mouseY;
+		glfwGetCursorPos(window, &mouseX, &mouseY);
+		
+		Position = glm::vec3(mouseX / 1920, mouseY / 1080 - oldPos.y, Position.z);
+	}
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE && glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_MIDDLE) == GLFW_RELEASE)
+	{
+		first_click = false;
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) != GLFW_PRESS) return;
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		Position += speed * orientation;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
@@ -38,8 +64,14 @@ void Camera::Input(GLFWwindow* window)
 	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 		Position += speed * glm::normalize(glm::cross(orientation, glm::cross(orientation, up)));
 
-	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 	{
+		if (!first_click)
+		{
+			glfwSetCursorPos(window, (width / 2), height / 2);
+			first_click = true;
+		}
+
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 		double mouseX;
@@ -50,8 +82,6 @@ void Camera::Input(GLFWwindow* window)
 		float rotY = senstivity * (float)(mouseX - (width / 2)) / width;
 
 		glm::vec3 newOrientation = glm::rotate(orientation, glm::radians(-rotX), glm::normalize(glm::cross(orientation, up)));
-
-		std::cout << glm::angle(newOrientation, up) << std::endl;
 
 		if ((glm::angle(newOrientation, up) <= 3.0f) and (glm::angle(newOrientation, up) >= 0.5f))
 			orientation = newOrientation;

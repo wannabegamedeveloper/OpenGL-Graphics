@@ -12,6 +12,10 @@
 
 class Camera
 {
+private:
+	bool first_click;
+	glm::vec3 oldPos;
+
 public:
 	glm::vec3 Position;
 	glm::vec3 orientation = glm::vec3(0.0f, 0.0f, -1.0f);

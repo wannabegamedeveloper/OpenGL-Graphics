@@ -105,5 +105,20 @@
     <Image Include="artworks-eW8o6DtdrA94gBzk-Hi77Eg-t500x500.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="brick spec.tif">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="brick.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Brick.tif">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="planks.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="planksSpec.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

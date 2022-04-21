@@ -180,8 +180,10 @@ int main()
 	glUniform4f(glGetUniformLocation(shaderProgram.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
 	glUniform3f(glGetUniformLocation(shaderProgram.ID, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
 
-	Texture samurai("artworks-eW8o6DtdrA94gBzk-Hi77Eg-t500x500.jpg", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGB, GL_UNSIGNED_BYTE);
-	samurai.texUni(shaderProgram, "tex0", 0);
+	Texture plank("planks.png", GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE);
+	plank.texUni(shaderProgram, "tex0", 0);
+	Texture plankSpecular("planksSpec.png", GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
+	plankSpecular.texUni(shaderProgram, "tex1", 1);
 
 	float rotation = 0.0f;
 	double prevTime = glfwGetTime();
@@ -203,7 +205,8 @@ int main()
 		camera.UpdateMatrix(45.0f, 0.1f, 100.0f);
 		camera.Matrix(shaderProgram, "camMatrix");
 
-		samurai.Bind();
+		plank.Bind();
+		plankSpecular.Bind();
 
 		VAO1.Bind();
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
@@ -222,7 +225,7 @@ int main()
 	VBO1.Delete();
 	EBO1.Delete();
 	shaderProgram.Deactivate();
-	samurai.Delete();
+	plank.Delete();
 
 	glfwDestroyWindow(window);
 
