@@ -149,6 +149,7 @@
     <ClCompile Include="EBO.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="shaders.cpp" />
     <ClCompile Include="stb.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -164,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EBO.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="shaders.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="VAO.h" />
