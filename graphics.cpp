@@ -1,18 +1,4 @@
-#include <iostream>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <stb/stb_img.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include "VBO.h"
-#include "VAO.h"
-#include "EBO.h"
-#include "shaders.h"
-#include "Texture.h"
-#include "Camera.h"
+#include "Mesh.h"
 
 float r = 0.0f;
 float g = 0.0f;
@@ -30,37 +16,37 @@ int main()
 
 	GLFWmonitor *monitor = glfwGetPrimaryMonitor();
 
-	GLfloat vertices[] =
+	Vertex vertices[] =
 	{
-		-0.5f, -0.5f, 0.5f,     1.0f, 1.0f, 1.0f, 0.0f,    0.0f, 0.0f,    0.0f, -1.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,      0.0f, 0.0f, 0.0f, 1.0f,	   1.0f, 0.0f,    0.0f, -1.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,     1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, -1.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,    0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 1.0f,    0.0f, -1.0f, 0.0f,
+		glm::vec3(- 0.5f, -0.5f, 0.5f),     glm::vec3(1.0f, 1.0f, 1.0f),    glm::vec2(0.0f, 0.0f),    glm::vec3(0.0f, -1.0f, 0.0f),
+		glm::vec3(0.5f, -0.5f, 0.5f),      glm::vec3(0.0f, 0.0f, 0.0f),	   glm::vec2(1.0f, 0.0f),    0.0f, -1.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,     1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, -1.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,    0.0f, 0.0f, 0.0f,    0.0f, 1.0f,    0.0f, -1.0f, 0.0f,
 
-		-0.5f, -0.2f, 0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,    0.0f, 1.0f, 0.0f,
-		0.5f, -0.2f, 0.5f,      1.0f, 1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    0.0f, 1.0f, 0.0f,
-		0.5f, -0.2f, -0.5f,     1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, 1.0f, 0.0f,
-		-0.5f, -0.2f, -0.5f,    0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 1.0f,    0.0f, 1.0f, 0.0f,
+		-0.5f, -0.2f, 0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 0.0f,    0.0f, 1.0f, 0.0f,
+		0.5f, -0.2f, 0.5f,      1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    0.0f, 1.0f, 0.0f,
+		0.5f, -0.2f, -0.5f,     1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, 1.0f, 0.0f,
+		-0.5f, -0.2f, -0.5f,    0.0f, 0.0f, 0.0f,    0.0f, 1.0f,    0.0f, 1.0f, 0.0f,
 
-		-0.5f, -0.2f, 0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,    0.0f, 0.0f, 1.0f,
-		0.5f, -0.2f, 0.5f,      1.0f, 1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    0.0f, 0.0f, 1.0f,
-		0.5f, -0.5f, 0.5f,      1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, 0.0f, 1.0f,
-		-0.5f, -0.5f, 0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 1.0f,    0.0f, 0.0f, 1.0f,
+		-0.5f, -0.2f, 0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 0.0f,    0.0f, 0.0f, 1.0f,
+		0.5f, -0.2f, 0.5f,      1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    0.0f, 0.0f, 1.0f,
+		0.5f, -0.5f, 0.5f,      1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, 0.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 1.0f,    0.0f, 0.0f, 1.0f,
 
-		-0.5f, -0.2f, 0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,    -1.0f, 0.0f, 0.0f,
-		-0.5f, -0.2f, -0.5f,    1.0f, 1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    -1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
-		-0.5f, -0.5f, 0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
+		-0.5f, -0.2f, 0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 0.0f,    -1.0f, 0.0f, 0.0f,
+		-0.5f, -0.2f, -0.5f,    1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    -1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
+		-0.5f, -0.5f, 0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 1.0f,    -1.0f, 0.0f, 0.0f,
 
-		-0.5f, -0.2f, -0.5f,    0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,    0.0f, 0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    0.0f, 0.0f, -1.0f,
-		0.5f, -0.5f, -0.5f,     1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, 0.0f, -1.0f,
-		0.5f, -0.2f, -0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 1.0f,    0.0f, 0.0f, -1.0f,
+		-0.5f, -0.2f, -0.5f,    0.0f, 0.0f, 0.0f,    0.0f, 0.0f,    0.0f, 0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,    1.0f, 1.0f, 1.0f,	   1.0f, 0.0f,    0.0f, 0.0f, -1.0f,
+		0.5f, -0.5f, -0.5f,     1.0f, 1.0f, 1.0f,    1.0f, 1.0f,    0.0f, 0.0f, -1.0f,
+		0.5f, -0.2f, -0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 1.0f,    0.0f, 0.0f, -1.0f,
 
-		0.5f, -0.2f, -0.5f,     0.0f, 0.0f, 0.0f, 1.0f,    0.0f, 0.0f,    1.0f, 0.0f, 0.0f,
-		0.5f, -0.5f, -0.5f,     1.0f, 1.0f, 1.0f, 1.0f,	   0.0f, 1.0f,    1.0f, 0.0f, 0.0f,
-		0.5f, -0.2f, 0.5f,      1.0f, 1.0f, 1.0f, 1.0f,    1.0f, 0.0f,    1.0f, 0.0f, 0.0f,
-		0.5f, -0.5f, 0.5f,      0.0f, 0.0f, 0.0f, 1.0f,    1.0f, 1.0f,    1.0f, 0.0f, 0.0f
+		0.5f, -0.2f, -0.5f,     0.0f, 0.0f, 0.0f,    0.0f, 0.0f,    1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, -0.5f,     1.0f, 1.0f, 1.0f,	   0.0f, 1.0f,    1.0f, 0.0f, 0.0f,
+		0.5f, -0.2f, 0.5f,      1.0f, 1.0f, 1.0f,    1.0f, 0.0f,    1.0f, 0.0f, 0.0f,
+		0.5f, -0.5f, 0.5f,      0.0f, 0.0f, 0.0f,    1.0f, 1.0f,    1.0f, 0.0f, 0.0f
 	};	
 
 	GLuint indices[] =
@@ -135,9 +121,9 @@ int main()
 	EBO EBO1(indices, sizeof(indices));
 
 	VAO1.LinkAttrib(VBO1, 0, 3, GL_FLOAT, 12 * sizeof(float), (void*)0);
-	VAO1.LinkAttrib(VBO1, 1, 4, GL_FLOAT, 12 * sizeof(float), (void*)(3 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 12 * sizeof(float), (void*)(7 * sizeof(float)));
-	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 12 * sizeof(float), (void*)(9 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 1, 3, GL_FLOAT, 12 * sizeof(float), (void*)(3 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 2, 2, GL_FLOAT, 12 * sizeof(float), (void*)(6 * sizeof(float)));
+	VAO1.LinkAttrib(VBO1, 3, 3, GL_FLOAT, 12 * sizeof(float), (void*)(8 * sizeof(float)));
 	VAO1.Unbind();
 	VBO1.Unbind();
 	EBO1.Unbind();
